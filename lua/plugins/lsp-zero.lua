@@ -79,12 +79,13 @@ return {
 
 				-- Custom keybindings
 				local opts = {buffer = bufnr}
-				local builtin = require('telescope.builtin')
+				local telescope = require('telescope.builtin')
+
 				vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
-				vim.keymap.set("n", "<leader>r", function() vim.lsp.buf.rename() end, opts)
-				vim.keymap.set("n", "<leader>ca", function() vim.lsp.buf.code_action() end, opts)
-				vim.keymap.set("n", "<leader>s", function() builtin.lsp_document_symbols() end, opts)
-				vim.keymap.set("n", "gr", function() builtin.lsp_references() end, opts)
+				vim.keymap.set("n", "gr", ":Lspsaga finder<CR>", opts)
+				vim.keymap.set("n", "<leader>ca", ":Lspsaga code_action<CR>", opts)
+				vim.keymap.set("n", "<leader>r", ":Lspsaga rename<CR>", opts)
+				vim.keymap.set("n", "<leader>s", ":Lspsaga outline<CR>", opts)
 			end)
 
 			require('mason-lspconfig').setup({
