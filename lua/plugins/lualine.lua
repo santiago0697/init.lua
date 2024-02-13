@@ -9,6 +9,15 @@ return {
 			globalstatus = true,
 			theme = 'nightfly'
 			-- theme = 'palenight'
-		}	
+		},
+		sections = {
+			lualine_c = {
+				{
+					'filename',
+					file_status = true,
+					path = 1
+				}
+			},
+		}
 	}
 }
