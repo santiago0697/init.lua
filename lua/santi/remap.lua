@@ -20,3 +20,5 @@ vim.keymap.set('v', '>', '>gv')
 -- Paste replace visual selection without copying it.
 vim.keymap.set('v', 'p', '"_dP')
 
+-- Copy relative path of the current file to the clipboard.
+vim.keymap.set('n', '<leader>cp', ':let @+ = expand("%")<CR>', {silent = true})
