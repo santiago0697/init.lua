@@ -10,8 +10,11 @@ return {
         enable = false,
         code_action = ''
       },
-      breadcrumbs = {
+      symbol_in_winbar = {
         enable = false
+      },
+      rename = {
+        in_select = false
       }
     })
   end,
