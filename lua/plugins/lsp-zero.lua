@@ -84,7 +84,7 @@ return {
         vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
         vim.keymap.set("n", "gr", ":Lspsaga finder<CR>", opts)
         vim.keymap.set("n", "<leader>ca", ":Lspsaga code_action<CR>", opts)
-        vim.keymap.set("n", "<leader>r", ":Lspsaga rename<CR>", opts)
+        vim.keymap.set("n", "<leader>r", ":Lspsaga rename mode=n<CR>", opts)
         vim.keymap.set("n", "<leader>s", ":Lspsaga outline<CR>", opts)
       end)
 

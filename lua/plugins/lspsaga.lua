@@ -9,6 +9,9 @@ return {
       ui = {
         enable = false,
         code_action = ''
+      },
+      breadcrumbs = {
+        enable = false
       }
     })
   end,
