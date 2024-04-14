@@ -99,6 +99,15 @@ return {
           end,
         }
       })
+
+      require('lspconfig').tsserver.setup({
+        init_options = {
+          preferences = {
+            importModuleSpecifierPreference = 'relative',
+            importModuleSpecifierEnding = 'minimal',
+          },
+        }
+      })
     end
   }
 }
