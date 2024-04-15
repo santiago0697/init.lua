@@ -103,6 +103,7 @@ return {
       require('lspconfig').tsserver.setup({
         init_options = {
           preferences = {
+            quotePreference = 'single',
             importModuleSpecifierPreference = 'relative',
             importModuleSpecifierEnding = 'minimal',
           },
