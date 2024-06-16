@@ -12,5 +12,5 @@ o.showmode=false --We don't need to see things like -- INSERT -- anymore
 local wo = vim.wo
 wo.number=true -- show line number
 wo.relativenumber=true -- show relative line number
-wo.cursorline=true --Enable highlighting of the current line
+wo.cursorline=false --Enable highlighting of the current line
 -- vim.wo.wrap=false --Display long lines as just one line
