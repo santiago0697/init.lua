@@ -11,6 +11,7 @@ return {
       -- theme = 'palenight'
     },
     sections = {
+      lualine_a = {},
       lualine_c = {
         {
           'filename',
