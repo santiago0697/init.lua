@@ -1,5 +1,5 @@
 return {
-  enabled = false,
+  enabled = true,
   'stevearc/conform.nvim',
   opts = {
     formatters_by_ft = {
