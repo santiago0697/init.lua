@@ -68,6 +68,8 @@ return {
       {'williamboman/mason-lspconfig.nvim'},
     },
     config = function()
+      local lspconfig = require('lspconfig')
+      local util = require('lspconfig.util')
       -- This is where all the LSP shenanigans will live
       local lsp_zero = require('lsp-zero')
       lsp_zero.extend_lspconfig()
@@ -89,7 +91,7 @@ return {
       end)
 
       require('mason-lspconfig').setup({
-        ensure_installed = { 'tsserver', 'eslint' },
+        ensure_installed = { 'tsserver', 'eslint', 'pyright', 'gopls' },
         handlers = {
           lsp_zero.default_setup,
           lua_ls = function()
@@ -100,13 +102,28 @@ return {
         }
       })
 
-      require('lspconfig').tsserver.setup({
+      lspconfig.tsserver.setup({
         init_options = {
           preferences = {
             quotePreference = 'single',
             importModuleSpecifierPreference = 'relative',
             importModuleSpecifierEnding = 'minimal',
           },
+        }
+      })
+
+      lspconfig.gopls.setup({
+        cmd = { 'gopls' },
+        filetypes = { 'go', 'gomod', 'gowork', 'gotmpl' },
+        root_dir = util.root_pattern('go.mod','go.work' ,'.git'),
+        settings = {
+          gopls = {
+            completeUnimported = true,
+            usePlaceholders = true,
+            analyses = {
+              unusedparams = true,
+            },
+          }
         }
       })
     end
