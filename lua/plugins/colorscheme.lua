@@ -6,6 +6,12 @@ return {
   config = function()
     require("catppuccin").setup({
       transparent_background = true,
+      custom_highlights = function(colors)
+        return {
+            -- CursorLineNr = { fg = colors.blue },
+            LineNr = { fg = colors.yellow },
+        }
+      end
     })
 
     vim.cmd.colorscheme "catppuccin"
