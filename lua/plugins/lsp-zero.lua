@@ -91,7 +91,12 @@ return {
       end)
 
       require('mason-lspconfig').setup({
-        ensure_installed = { 'tsserver', 'eslint', 'pyright', 'gopls' },
+        ensure_installed = { 
+          -- 'tsserver',
+          'eslint',
+          'pyright',
+          'gopls'
+        },
         handlers = {
           lsp_zero.default_setup,
           lua_ls = function()
@@ -102,15 +107,15 @@ return {
         }
       })
 
-      lspconfig.tsserver.setup({
-        init_options = {
-          preferences = {
-            quotePreference = 'single',
-            importModuleSpecifierPreference = 'relative',
-            importModuleSpecifierEnding = 'minimal',
-          },
-        }
-      })
+      -- lspconfig.tsserver.setup({
+      --   init_options = {
+      --     preferences = {
+      --       quotePreference = 'single',
+      --       importModuleSpecifierPreference = 'relative',
+      --       importModuleSpecifierEnding = 'minimal',
+      --     },
+      --   }
+      -- })
 
       lspconfig.gopls.setup({
         cmd = { 'gopls' },
