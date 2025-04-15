@@ -14,3 +14,25 @@ wo.number=true -- show line number
 wo.relativenumber=true -- show relative line number
 wo.cursorline=false --Enable highlighting of the current line
 -- vim.wo.wrap=false --Display long lines as just one line
+
+-- auto-reload files when modified exernally
+vim.opt.autoread = true
+vim.api.nvim_create_autocmd(
+{
+  "BufEnter",
+  "CursorHold",
+  "CursorHoldI",
+  "FocusGained" 
+},
+{
+  command = "if mode() != 'c' | checktime | endif",
+  pattern = { "*" },
+})
+
+-- prevents auto-commenting new lines
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "*",
+  callback = function()
+    vim.opt_local.formatoptions:remove({ 'r', 'o' })
+  end,
+})
