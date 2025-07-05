@@ -52,11 +52,25 @@ return {
     end,
     keys = {
       {
-        "<leader>Gl",
+        "<leader>gl",
         function()
           require("gitsigns").blame_line()
         end,
         desc = "Blame",
+      },
+      {
+        "<leader>gj",
+        function()
+          require("gitsigns").nav_hunk('next')
+        end,
+        desc = "Next Hunk",
+      },
+      {
+        "<leader>gs",
+        function()
+          require("gitsigns").stage_hunk()
+        end,
+        desc = "Stage Hunk",
       },
     }
   }
