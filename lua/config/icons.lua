@@ -3,6 +3,6 @@ return {
     error = ' ',
     warn  = ' ',
     info  = ' ',
-    hint  = ' '
+    hint  = '󰌶 '
   }
 }
