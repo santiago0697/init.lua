@@ -31,7 +31,9 @@ return {
     { "<leader>ss", function() Snacks.picker.lsp_symbols() end, desc = "LSP Symbols" },
     { "<leader>q", function() Snacks.bufdelete() end, desc = "Delete Buffer" },
     { "<leader>aq", function() Snacks.bufdelete.all() end, desc = "Delete Buffer" },
-    { "<leader>aq", function() Snacks.bufdelete.other() end, desc = "Delete Buffer" }
+    { "<leader>aq", function() Snacks.bufdelete.other() end, desc = "Delete Buffer" },
+    { "<leader>d", function() Snacks.picker.diagnostics() end, desc = "Diagnostics" },
+    { "<leader>db", function() Snacks.picker.diagnostics_buffer() end, desc = "Buffer Diagnostics" },
   },
   init = function()
 
