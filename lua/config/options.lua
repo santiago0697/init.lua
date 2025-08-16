@@ -19,6 +19,7 @@ vim.opt.list = false                          -- Don't show invisible characters
 vim.opt.listchars = {                         -- Set how invisible characters look (used when `list = true`)
   tab = '» ', trail = '·', nbsp = '␣'
 }
+vim.o.winborder = 'rounded'                   -- Add rounded borders to floating windows
 
 -- Editing behavior
 vim.opt.expandtab = true                      -- Convert tabs to spaces
