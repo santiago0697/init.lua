@@ -26,7 +26,7 @@ local bubbles_theme = {
 
 local icons = require('config.icons')
 
-local setup =  {
+local setup = {
   options = {
     theme = bubbles_theme,
     component_separators = '',
@@ -74,6 +74,26 @@ local setup =  {
     lualine_y = {},
     lualine_z = {},
   },
+  winbar = {
+    lualine_a = {},
+    lualine_b = {},
+    lualine_c = {
+      {
+        function()
+          return require("nvim-navic").get_location()
+        end,
+        cond = function()
+          return require("nvim-navic").is_available()
+        end,
+      }
+    },
+    lualine_x = {},
+    lualine_y = {},
+    lualine_z = {},
+  },
+  inactive_winbar = {
+    lualine_c = {},
+  },
   tabline = {},
   extensions = {},
 }
@@ -83,6 +103,7 @@ return {
   lazy = false,
   dependencies = {
     'nvim-tree/nvim-web-devicons',
+    'SmiteshP/nvim-navic'
   },
   opts = setup
 }
