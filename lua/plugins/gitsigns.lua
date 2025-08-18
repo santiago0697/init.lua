@@ -1,32 +1,77 @@
 return {
-  'lewis6991/gitsigns.nvim',
-  lazy = false,
-  keys = {
-    { ']h', ':Gitsigns next_hunk<CR>'},
-    { '[h', ':Gitsigns prev_hunk<CR>'},
-    { 'gs', ':Gitsigns stage_hunk<CR>'},
-    { 'gS', ':Gitsigns undo_stage_hunk<CR>'},
-    { 'gp', ':Gitsigns preview_hunk<CR>'},
-    { 'gb', ':Gitsigns blame_line<CR>'},
-  },
-  opts = {
-    preview_config = {
-      border = { '', '', '', ' ' },
-    },
-    current_line_blame = true,
-    current_line_blame_opts = {
-      virt_text = true,
-      virt_text_pos = 'eol', -- 'eol' | 'overlay' | 'right_align'
-      delay = 1000,
-      ignore_whitespace = false,
-    },
-    signs = {
-      add          = { text = '│' },
-      change       = { text = '│' },
-      delete       = { text = '_' },
-      topdelete    = { text = '‾' },
-      changedelete = { text = '┄' },
-      untracked    = { text = '┊' },
-    },
-  },
+  {
+    "lewis6991/gitsigns.nvim",
+    lazy = false,
+    config = function()
+      require("gitsigns").setup({
+        signs = {
+          add = { text = "┃" },
+          change = { text = "┃" },
+          delete = { text = "_" },
+          topdelete = { text = "‾" },
+          changedelete = { text = "~" },
+          untracked = { text = "┆" },
+        },
+        signs_staged = {
+          add = { text = "┃" },
+          change = { text = "┃" },
+          delete = { text = "_" },
+          topdelete = { text = "‾" },
+          changedelete = { text = "~" },
+          untracked = { text = "┆" },
+        },
+        signcolumn = true,
+        numhl = false,
+        linehl = false,
+        word_diff = false,
+        watch_gitdir = {
+          interval = 1000,
+          follow_files = true,
+        },
+        attach_to_untracked = true,
+        current_line_blame = false, -- Toggle with `:Gitsigns toggle_current_line_blame`
+        current_line_blame_opts = {
+          virt_text = true,
+          virt_text_pos = "eol", -- 'eol' | 'overlay' | 'right_align'
+          delay = 1000,
+          ignore_whitespace = false,
+        },
+        current_line_blame_formatter = "<author>, <author_time:%Y-%m-%d> - <summary>",
+        sign_priority = 6,
+        status_formatter = nil,
+        update_debounce = 200,
+        max_file_length = 40000,
+        preview_config = {
+          border = "rounded",
+          style = "minimal",
+          relative = "cursor",
+          row = 0,
+          col = 1,
+        },
+      })
+    end,
+    keys = {
+      {
+        "<leader>gl",
+        function()
+          require("gitsigns").blame_line()
+        end,
+        desc = "Blame",
+      },
+      {
+        "<leader>gj",
+        function()
+          require("gitsigns").nav_hunk('next')
+        end,
+        desc = "Next Hunk",
+      },
+      {
+        "<leader>gs",
+        function()
+          require("gitsigns").stage_hunk()
+        end,
+        desc = "Stage Hunk",
+      },
+    }
+  }
 }
