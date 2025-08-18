@@ -1,1 +1,1 @@
-### 2023 Nvim configuration using lua and lazy.vim as plugin manager
+### 2025 NeoVim configuration using lua and lazy.vim as plugin manager
