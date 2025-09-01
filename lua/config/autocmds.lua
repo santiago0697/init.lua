@@ -9,10 +9,10 @@ api.nvim_create_autocmd("TextYankPost", {
 
 -- prevents auto-commenting new lines
 api.nvim_create_autocmd("FileType", {
-  pattern = "*",
-  callback = function()
-    vim.opt_local.formatoptions:remove({ 'r', 'o' })
-  end,
+    pattern = "*",
+    callback = function()
+        vim.opt_local.formatoptions:remove({ 'r', 'o' })
+    end,
 })
 
 -- go to last loc when opening a buffer
@@ -26,3 +26,19 @@ api.nvim_create_autocmd("BufReadPost", {
     end,
 })
 
+vim.api.nvim_create_autocmd("LspAttach", {
+    group = vim.api.nvim_create_augroup('lsp-attach', { clear = true }),
+    callback = function()
+        vim.keymap.set("n", "gs", function()
+            vim.lsp.buf.signature_help()
+        end, { desc = "Signature Help" })
+
+        vim.keymap.set("n", "<leader>cr", function()
+            vim.lsp.buf.rename()
+        end, { desc = "Code Rename" })
+
+        vim.keymap.set("n", "<leader>ca", function()
+            vim.lsp.buf.code_action()
+        end, { desc = "Code Action" })
+    end
+})
