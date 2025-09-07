@@ -5,4 +5,3 @@ require("config.keymaps")
 require("config.autocmds")
 
 require("core.lazy")
-

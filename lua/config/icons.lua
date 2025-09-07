@@ -1,8 +1,8 @@
 return {
-  diagnostics = {
-    error = ' ',
-    warn  = ' ',
-    info  = ' ',
-    hint  = '󰌶 '
-  }
+	diagnostics = {
+		error = " ",
+		warn = " ",
+		info = " ",
+		hint = "󰌶 ",
+	},
 }
