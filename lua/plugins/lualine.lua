@@ -80,7 +80,13 @@ local setup = {
 		lualine_c = {
 			{
 				function()
-					return require("nvim-navic").get_location()
+					local location = require("nvim-navic").get_location()
+
+					if location == "" then
+						return "󰆧 "
+					end
+
+					return location
 				end,
 				cond = function()
 					return require("nvim-navic").is_available()
