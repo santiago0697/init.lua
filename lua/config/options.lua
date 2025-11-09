@@ -13,6 +13,7 @@ vim.opt.relativenumber = true -- Show relative line numbers
 -- UI behavior
 vim.opt.showmode = false -- Don't show mode like -- INSERT --
 -- vim.opt.signcolumn = 'yes'                    -- Always show signcolumn to avoid text shifting
+vim.opt.signcolumn = 'auto:3'                    -- Always show signcolumn to avoid text shifting
 -- vim.opt.cursorline = true                     -- Highlight the current line
 vim.opt.scrolloff = 10 -- Keep 10 lines above/below cursor when scrolling
 vim.opt.list = false -- Don't show invisible characters (override if needed)

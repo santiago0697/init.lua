@@ -6,15 +6,12 @@ vim.lsp.enable({
 local icons = require("config.icons")
 
 vim.diagnostic.config({
-	-- virtual_text = true,
-	virtual_lines = true,
-	underline = true,
+	virtual_text = false,  -- Disable virtual text
+	virtual_lines = false, -- Disable virtual lines
+	underline = true,      -- Keep underlines only
 	update_in_insert = false,
 	severity_sort = true,
-	float = {
-		border = "rounded",
-		source = true,
-	},
+	-- signs = false,         -- Disable signs in the gutter
 	signs = {
 		text = {
 			[vim.diagnostic.severity.ERROR] = icons.diagnostics.error,
@@ -26,6 +23,13 @@ vim.diagnostic.config({
 			[vim.diagnostic.severity.ERROR] = "ErrorMsg",
 			[vim.diagnostic.severity.WARN] = "WarningMsg",
 		},
+	},
+	float = {
+		border = "rounded",
+		source = true,   -- Always show the source
+		header = "",
+		prefix = "",
+		-- focusable = true,
 	},
 })
 
