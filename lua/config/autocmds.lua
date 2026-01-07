@@ -40,9 +40,5 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		vim.keymap.set("n", "<leader>ca", function()
 			vim.lsp.buf.code_action()
 		end, { desc = "Code Action" })
-
-		vim.keymap.set("n", "<leader>dc", function()
-			vim.diagnostic.open_float()
-		end, { desc = "Show Diagnostic" })
 	end,
 })

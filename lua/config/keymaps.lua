@@ -42,3 +42,8 @@ vim.keymap.set("n", "*", "*zz", opts)
 vim.keymap.set("n", "#", "#zz", opts)
 vim.keymap.set("n", "g*", "g*zz", opts)
 vim.keymap.set("n", "g#", "g#zz", opts)
+
+-- Diagnostics
+vim.keymap.set("n", "<leader>dc", function()
+	vim.diagnostic.open_float()
+end, { desc = "Show Diagnostic" })
