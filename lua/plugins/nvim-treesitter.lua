@@ -4,9 +4,14 @@ return {
 		version = false,
 		build = ":TSUpdate",
 		event = { "BufReadPost", "BufNewFile" },
+		cmd = { "TSUpdate", "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
 		dependencies = {},
 		config = function()
-			require("nvim-treesitter.configs").setup({
+			local status_ok, configs = pcall(require, "nvim-treesitter.configs")
+			if not status_ok then
+				return
+			end
+			configs.setup({
 				sync_install = false,
 				modules = {},
 				highlight = {
