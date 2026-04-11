@@ -4,13 +4,21 @@ return {
 	priority = 1000,
 	lazy = false,
 	opts = {
-		explorer = { enabled = true },
+		explorer = {
+			enabled = true,
+		},
 		picker = {
 			enabled = true,
 			sources = {
 				explorer = {
 					auto_close = true,
-					-- include = { "hidden" }
+					hidden = true,
+				},
+				files = {
+					-- Show hidden files (dotfiles) in the file picker
+					hidden = true,
+					-- If you also want to see files ignored by .gitignore, set this to true
+					ignored = false,
 				},
 			},
 		},

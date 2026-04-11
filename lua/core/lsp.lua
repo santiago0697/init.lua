@@ -1,14 +1,15 @@
 vim.lsp.enable({
 	"gopls",
 	"lua_ls",
+	"vtsls",
 })
 
 local icons = require("config.icons")
 
 vim.diagnostic.config({
-	virtual_text = false,  -- Disable virtual text
+	virtual_text = false, -- Disable virtual text
 	virtual_lines = false, -- Disable virtual lines
-	underline = true,      -- Keep underlines only
+	underline = true, -- Keep underlines only
 	update_in_insert = false,
 	severity_sort = true,
 	-- signs = false,         -- Disable signs in the gutter
@@ -26,7 +27,7 @@ vim.diagnostic.config({
 	},
 	float = {
 		border = "rounded",
-		source = true,   -- Always show the source
+		source = true, -- Always show the source
 		header = "",
 		prefix = "",
 		-- focusable = true,
