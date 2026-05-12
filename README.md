@@ -1,77 +1,184 @@
-### 2025 NeoVim configuration using lua and lazy.vim as plugin manager
+# 2026 Neovim Configuration
 
-## External Dependencies
+A modern Neovim configuration written in Lua, using [lazy.nvim](https://github.com/folke/lazy.nvim) as the plugin manager and the native Neovim 0.11+ LSP API (`vim.lsp.enable` + `lsp/` directory).
 
-To make this Neovim configuration work properly, you need to install the following external tools:
+## Structure
+
+```
+.
+├── init.lua              # Entry point
+├── lsp/                  # Native LSP server configs (Neovim 0.11+)
+│   ├── gopls.lua
+│   ├── lua_ls.lua
+│   └── vtsls.lua
+└── lua/
+    ├── config/           # Editor options, keymaps, autocmds, icons
+    ├── core/             # Bootstrap: lazy.nvim setup + LSP diagnostics/commands
+    └── plugins/          # Plugin specs (one file per plugin)
+```
+
+## Requirements
 
 ### Required
-- **Neovim** >= 0.10.0
-- **Git** (for plugin management and gitsigns)
-- **Node.js** (for some LSP servers and tools)
+- **Neovim** >= 0.11.0 (uses `vim.lsp.enable()` and the top-level `lsp/` directory)
+- **Git** — for plugin management and `gitsigns.nvim`
+- **A Nerd Font** — required for the icons used in diagnostics, statusline, and pickers (e.g. [JetBrainsMono Nerd Font](https://www.nerdfonts.com/))
+- **Node.js** & **npm** — required by `vtsls`, `eslint_d`, and `prettier`
+- **Go** — required to install `gopls`, `goimports`, and `golangci-lint`
 
 ### Language Servers (LSP)
-Install these to enable language-specific features:
-- **gopls** - Go language server
-  ```bash
-  go install golang.org/x/tools/gopls@latest
-  ```
-- **lua-language-server** - Lua language server
-  ```bash
-  # macOS (Homebrew)
-  brew install lua-language-server
-  ```
 
-### Formatters
-Install these for code formatting (conform.nvim):
-- **goimports** & **gofmt** - Go formatting (gofmt comes with Go)
-  ```bash
-  go install golang.org/x/tools/cmd/goimports@latest
-  ```
-- **stylua** - Lua formatter
-  ```bash
-  # macOS (Homebrew)
-  brew install stylua
-  # Or via cargo
-  cargo install stylua
-  ```
-- **prettier** - JavaScript/TypeScript/JSON/YAML/Markdown/HTML/CSS formatter
-  ```bash
-  npm install -g prettier
-  ```
-- **shfmt** - Shell script formatter
-  ```bash
-  # macOS (Homebrew)
-  brew install shfmt
-  # Or via Go
-  go install mvdan.cc/sh/v3/cmd/shfmt@latest
-  ```
+| Server                | Language       | Install |
+|-----------------------|----------------|---------|
+| `gopls`               | Go             | `go install golang.org/x/tools/gopls@latest` |
+| `lua-language-server` | Lua            | `brew install lua-language-server` |
+| `vtsls`               | TS / JS / JSX  | `npm install -g @vtsls/language-server` |
 
-### Linters
-Install these for code linting (nvim-lint):
-- **golangci-lint** - Go linter
-  ```bash
-  # macOS (Homebrew)
-  brew install golangci-lint
-  # Or via Go
-  go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
-  ```
-- **shellcheck** - Shell script linter
-  ```bash
-  # macOS (Homebrew)
-  brew install shellcheck
-  ```
+### Formatters (via `conform.nvim`)
 
-### Optional but Recommended
-- **ripgrep** - For faster searching (used by many plugins)
-  ```bash
-  brew install ripgrep
-  ```
-- **fd** - Fast alternative to find (used by some plugins)
-  ```bash
-  brew install fd
-  ```
+| Tool         | Filetypes                                                     | Install |
+|--------------|---------------------------------------------------------------|---------|
+| `goimports`  | go                                                            | `go install golang.org/x/tools/cmd/goimports@latest` |
+| `gofmt`      | go                                                            | ships with Go |
+| `stylua`     | lua                                                           | `brew install stylua` (or `cargo install stylua`) |
+| `prettier`   | js, ts, jsx, tsx, json, jsonc, yaml, markdown, html, css, scss | `npm install -g prettier` |
+| `shfmt`      | sh, bash                                                      | `brew install shfmt` (or `go install mvdan.cc/sh/v3/cmd/shfmt@latest`) |
 
-### Notes
-- Most plugins will be automatically installed by lazy.nvim when you first launch Neovim
-- Tree-sitter parsers will be auto-installed when opening supported file types
-- Make sure the tools are in your `$PATH` after installation
+Formatting runs automatically on save (`format_on_save`), or manually with `<leader>=`.
+
+### Linters (via `nvim-lint`)
+
+| Tool             | Filetypes                  | Install |
+|------------------|----------------------------|---------|
+| `golangci-lint`  | go                         | `brew install golangci-lint` |
+| `eslint_d`       | js, ts, jsx, tsx           | `npm install -g eslint_d` |
+| `shellcheck`     | sh, bash, zsh              | `brew install shellcheck` |
+
+Linting runs automatically on `BufEnter`, `BufWritePost`, and `InsertLeave`. Trigger manually with `<leader>ll`.
+
+### Recommended CLI tools
+- **ripgrep** (`brew install ripgrep`) — used by the snacks.nvim grep pickers
+- **fd** (`brew install fd`) — fast file discovery
+- **lazygit** (`brew install lazygit`) — invoked from `<leader>gg` via snacks.nvim
+
+## Plugins
+
+| Plugin                                                      | Purpose |
+|-------------------------------------------------------------|---------|
+| [`folke/lazy.nvim`](https://github.com/folke/lazy.nvim)     | Plugin manager (bootstrapped automatically) |
+| [`catppuccin/nvim`](https://github.com/catppuccin/nvim)     | Colorscheme (transparent background) |
+| [`folke/snacks.nvim`](https://github.com/folke/snacks.nvim) | Explorer, picker, lazygit integration |
+| [`saghen/blink.cmp`](https://github.com/Saghen/blink.cmp)   | Completion engine |
+| [`L3MON4D3/LuaSnip`](https://github.com/L3MON4D3/LuaSnip) + [`rafamadriz/friendly-snippets`](https://github.com/rafamadriz/friendly-snippets) | Snippets |
+| [`folke/lazydev.nvim`](https://github.com/folke/lazydev.nvim) | Lua/Neovim API completion |
+| [`stevearc/conform.nvim`](https://github.com/stevearc/conform.nvim) | Formatting |
+| [`mfussenegger/nvim-lint`](https://github.com/mfussenegger/nvim-lint) | Linting |
+| [`nvim-treesitter/nvim-treesitter`](https://github.com/nvim-treesitter/nvim-treesitter) | Syntax highlighting / indent |
+| [`lewis6991/gitsigns.nvim`](https://github.com/lewis6991/gitsigns.nvim) | Git gutter & hunk actions |
+| [`nvim-lualine/lualine.nvim`](https://github.com/nvim-lualine/lualine.nvim) | Statusline |
+| [`SmiteshP/nvim-navic`](https://github.com/SmiteshP/nvim-navic) | Code context in the winbar |
+| [`nvim-tree/nvim-web-devicons`](https://github.com/nvim-tree/nvim-web-devicons) | File-type icons |
+| [`windwp/nvim-autopairs`](https://github.com/windwp/nvim-autopairs) | Auto-close brackets/quotes |
+| [`unblevable/quick-scope`](https://github.com/unblevable/quick-scope) | Highlight `f`/`F`/`t`/`T` targets |
+| [`tpope/vim-commentary`](https://github.com/tpope/vim-commentary) | Toggle comments |
+| [`tpope/vim-sleuth`](https://github.com/tpope/vim-sleuth) | Auto-detect indent settings |
+
+Treesitter parsers auto-installed: `bash`, `c`, `html`, `javascript`, `json`, `lua`, `luadoc`, `luap`, `markdown`, `markdown_inline`, `python`, `query`, `regex`, `tsx`, `typescript`, `vim`, `vimdoc`, `yaml`, `go`, `gomod`, `gowork`, `gosum`, `terraform`.
+
+## Initial Setup
+
+1. Install all required tools listed in [Requirements](#requirements).
+2. Back up any existing Neovim config and data:
+   ```bash
+   mv ~/.config/nvim ~/.config/nvim.bak
+   mv ~/.local/share/nvim ~/.local/share/nvim.bak
+   ```
+3. Clone this repo into your Neovim config directory:
+   ```bash
+   git clone <this-repo> ~/.config/nvim
+   ```
+4. Start Neovim. `lazy.nvim` will bootstrap itself, install all plugins, and treesitter parsers will install lazily on first use of each filetype.
+   ```bash
+   nvim
+   ```
+5. Verify the setup:
+   - `:Lazy` — confirm all plugins installed
+   - `:checkhealth` — confirm Neovim version, providers, and external tool availability
+   - `:LspInfo` — inspect attached LSP clients in a buffer
+   - `:LintStatus` — show linters for the current filetype
+   - `:ConformInfo` — show formatter status
+
+## Key Bindings
+
+Leader key: `<Space>`
+
+### Editor
+| Key            | Action |
+|----------------|--------|
+| `<leader>v`    | New horizontal split |
+| `<leader>h`    | New vertical split |
+| `<C-h/j/k/l>`  | Move between splits |
+| `<C-d>` / `<C-u>` | Half-page scroll (centered) |
+| `<Right>` / `<Left>` | Next / previous buffer |
+| `<leader>cp`   | Copy relative path of current file |
+| `<Esc>`        | Clear search highlight |
+
+### Files & search (snacks.nvim)
+| Key            | Action |
+|----------------|--------|
+| `<leader>e`    | File explorer |
+| `<leader>pv`   | Reveal current file in explorer |
+| `<leader>ff`   | Find files |
+| `<leader>/`    | Live grep |
+| `<leader>sw`   | Grep word under cursor / selection |
+| `<leader>,`    | Buffer picker |
+| `<leader>gg`   | Lazygit |
+
+### LSP
+| Key            | Action |
+|----------------|--------|
+| `gd`           | Goto definition |
+| `gr`           | References |
+| `gI`           | Goto implementation |
+| `gs`           | Signature help |
+| `<leader>ss`   | LSP symbols |
+| `<leader>cr`   | Rename |
+| `<leader>ca`   | Code action |
+| `<leader>=`    | Format buffer |
+
+### Diagnostics
+| Key            | Action |
+|----------------|--------|
+| `<leader>dc`   | Show diagnostic float |
+| `<leader>da`   | Diagnostics picker |
+| `<leader>db`   | Buffer diagnostics picker |
+| `<leader>ll`   | Trigger linting |
+
+### Git (gitsigns)
+| Key            | Action |
+|----------------|--------|
+| `<leader>gl`   | Blame line |
+| `<leader>gj`   | Next hunk |
+| `<leader>gs`   | Stage hunk |
+
+### Buffers
+| Key            | Action |
+|----------------|--------|
+| `<leader>q`    | Delete current buffer |
+| `<leader>Q`    | Delete all other buffers |
+| `<leader>aq`   | Delete all buffers |
+
+## Custom Commands
+
+- `:LspInfo` — full LSP report (clients, root, capabilities, diagnostics summary)
+- `:LspStatus` — concise per-client status
+- `:LspCapabilities` — full capability matrix per client
+- `:LspRestart` — restart LSP clients attached to the current buffer
+- `:LintStatus` — show linters configured for the current filetype
+
+## Notes
+
+- Plugins install on first launch via `lazy.nvim` — no manual sync step needed.
+- Treesitter parsers install lazily as filetypes are opened (`auto_install = true`).
+- LSP servers are **not** managed by Mason in this config — install them yourself per the table above and make sure they live on your `$PATH`.
+- `vim.opt.clipboard = "unnamedplus"` is set, so yanks go to the system clipboard. On Linux ensure `xclip` or `wl-clipboard` is installed.
