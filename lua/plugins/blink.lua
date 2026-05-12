@@ -38,6 +38,12 @@ return {
 					},
 				},
 				completion = {
+					list = {
+						selection = {
+							preselect = true,
+							auto_insert = false,
+						},
+					},
 					menu = {
 						border = nil,
 						scrolloff = 1,
