@@ -115,8 +115,8 @@ Leader key: `<Space>`
 ### Editor
 | Key            | Action |
 |----------------|--------|
-| `<leader>v`    | New horizontal split |
-| `<leader>h`    | New vertical split |
+| `<leader>h`    | New horizontal split |
+| `<leader>v`    | New vertical split |
 | `<C-h/j/k/l>`  | Move between splits |
 | `<C-d>` / `<C-u>` | Half-page scroll (centered) |
 | `<Right>` / `<Left>` | Next / previous buffer |

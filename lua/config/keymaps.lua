@@ -1,8 +1,8 @@
 local opts = { noremap = true, silent = true }
 
 -- split remaps
-vim.keymap.set("n", "<leader>v", vim.cmd.new, opts)
-vim.keymap.set("n", "<leader>h", vim.cmd.vnew, opts)
+vim.keymap.set("n", "<leader>h", vim.cmd.new, opts)
+vim.keymap.set("n", "<leader>v", vim.cmd.vnew, opts)
 
 -- split movements
 vim.keymap.set("n", "<C-h>", "<C-w>h")
