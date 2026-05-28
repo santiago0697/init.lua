@@ -87,6 +87,36 @@ Treesitter parsers auto-installed: `bash`, `c`, `html`, `javascript`, `json`, `l
 
 ## Initial Setup
 
+### Quick start (recommended)
+
+Clone the repo anywhere, then run the bundled `setup.sh`:
+
+```bash
+git clone <this-repo> ~/code/nvim-config
+cd ~/code/nvim-config
+./setup.sh
+```
+
+`setup.sh` will:
+
+1. Verify that Neovim `>= 0.11` and `git` are installed.
+2. Install the external tools from [Requirements](#requirements) — language servers, formatters, linters, and the CLI helpers — via `brew`, `go install`, and `npm install -g`. Anything already on your `$PATH` is skipped; missing package managers produce a warning rather than a hard failure.
+3. Back up any existing `~/.config/nvim` and `~/.local/share/nvim` to `*.bak.<timestamp>` (prompts before moving).
+4. Symlink this repo to `~/.config/nvim` so edits in the repo are picked up immediately.
+5. Bootstrap `lazy.nvim` and install all plugins headlessly (`nvim --headless "+Lazy! sync" +qa`).
+
+#### Flags
+
+| Flag           | Behavior |
+|----------------|----------|
+| `--no-install` | Skip the dependency-install step (assume all external tools are already present). |
+| `--copy`       | Copy the repo into `~/.config/nvim` instead of symlinking. |
+| `--yes` / `-y` | Don't prompt before moving an existing `~/.config/nvim` or `~/.local/share/nvim` out of the way. |
+
+### Manual setup
+
+If you'd rather do it by hand:
+
 1. Install all required tools listed in [Requirements](#requirements).
 2. Back up any existing Neovim config and data:
    ```bash
@@ -101,12 +131,16 @@ Treesitter parsers auto-installed: `bash`, `c`, `html`, `javascript`, `json`, `l
    ```bash
    nvim
    ```
-5. Verify the setup:
-   - `:Lazy` — confirm all plugins installed
-   - `:checkhealth` — confirm Neovim version, providers, and external tool availability
-   - `:LspInfo` — inspect attached LSP clients in a buffer
-   - `:LintStatus` — show linters for the current filetype
-   - `:ConformInfo` — show formatter status
+
+### Verifying the install
+
+After either path, open Neovim and run:
+
+- `:Lazy` — confirm all plugins installed
+- `:checkhealth` — confirm Neovim version, providers, and external tool availability
+- `:LspInfo` — inspect attached LSP clients in a buffer
+- `:LintStatus` — show linters for the current filetype
+- `:ConformInfo` — show formatter status
 
 ## Key Bindings
 
