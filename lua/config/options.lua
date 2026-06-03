@@ -51,3 +51,6 @@ vim.opt.splitbelow = true -- Horizontal splits open below
 
 -- Misc
 vim.opt.swapfile = false -- Disable swap files
+vim.opt.backup = false
+vim.opt.laststatus = 3
+vim.o.cmdheight = 0
