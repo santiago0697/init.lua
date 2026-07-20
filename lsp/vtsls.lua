@@ -17,6 +17,7 @@ return {
 				updateImportsOnFileMove = { enabled = "always" },
 				suggest = {
 					completeFunctionCalls = true,
+					autoImports = true,
 				},
 				inlayHints = {
 					parameterNames = { enabled = "literals" },
@@ -31,6 +32,7 @@ return {
 			updateImportsOnFileMove = { enabled = "always" },
 			suggest = {
 				completeFunctionCalls = true,
+				autoImports = true,
 			},
 		},
 	},

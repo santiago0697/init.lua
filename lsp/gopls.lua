@@ -24,6 +24,10 @@ return {
 			usePlaceholders = true,
 			completeUnimported = true,
 			semanticTokens = true,
+			buildFlags = {
+				"-tags=e2e",
+				"-tags=unit",
+			},
 		},
 	},
 }
